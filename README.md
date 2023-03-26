@@ -2,8 +2,8 @@
 Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednames.com/)
 <html>
 <head>
-	<title>Cyber Matrix Roots</title>
-	<style>
+<title>Cyber Matrix Roots</title>
+<style>
 		body {
 			background-color: black;
 		}
@@ -15,12 +15,12 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 			left: 0;
 			z-index: -1;
 		}
-	</style>
+</style>
 </head>
 <body>
-	<canvas id="matrix"></canvas>
+<canvas id="matrix"></canvas>
 
-	<script>
+<script>
 		const canvas = document.getElementById('matrix');
 		const context = canvas.getContext('2d');
 
@@ -80,6 +80,6 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 		}
 
 		setInterval(draw, 369);
-	</script>
+</script>
 </body>
 </html>
