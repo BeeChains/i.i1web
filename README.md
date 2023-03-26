@@ -27,7 +27,7 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const columnWidth = 7;
+    const columnWidth = 10;
     const columns = Math.floor(canvas.width / columnWidth);
 
     const goldenRatio = 1.61803398875;
@@ -55,8 +55,8 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
             let y = canvas.height - Math.floor(Math.random() * 10); // Randomly move up the roots
             for (let j = 0; j < roots.length; j++) {
                 const noise = Math.random() * 5 - 2.5;
-                const color = Math.floor(Math.random() * 32) + 192;
-                context.fillStyle = `rgb(0, ${color}, 0)`;
+                const hue = Math.random() * 360;
+                context.fillStyle = `hsl(${hue}, 100%, 50%)`; // Set color using random hue
                 context.fillText(roots[j], x, y + noise);
                 y -= columnWidth;
             }
