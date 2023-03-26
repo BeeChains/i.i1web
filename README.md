@@ -64,7 +64,8 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
         }
     }
 
-    setInterval(draw, 33);
+    setInterval(draw, 50); // Change this interval to adjust the animation speed
+
 </script>
 </body>
 </html>
