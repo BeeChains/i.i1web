@@ -27,7 +27,7 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const columnWidth = 10;
+    const columnWidth = 7;
     const columns = Math.floor(canvas.width / columnWidth);
 
     const goldenRatio = 1.61803398875;
@@ -65,7 +65,7 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
         }
     }
 
-    setInterval(draw, 161.8);
+    setInterval(draw, 369);
 
 </script>
 </body>
