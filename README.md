@@ -34,6 +34,8 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 		drops[i] = Math.floor(Math.random() * canvas.height);
 	}
 
+	const goldenRatio = 1.61803398875;
+
 	function draw() {
 		context.fillStyle = 'rgba(0, 0, 0, 0.05)';
 		context.fillRect(0, 0, canvas.width, canvas.height);
@@ -43,7 +45,8 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 		
 		for (let i = 0; i < drops.length; i++) {
 			const text = String.fromCharCode(Math.floor(Math.random() * 128));
-			context.fillText(text, i * 10, drops[i]);
+			const y = (i * 10) * goldenRatio % canvas.height;
+			context.fillText(text, i * 10, y);
 			
 			if (drops[i] * 10 > canvas.height && Math.random() > 0.95) {
 				drops[i] = 0;
