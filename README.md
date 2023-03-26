@@ -27,12 +27,12 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const columnWidth = 7;
+    const columnWidth = 10;
     const columns = Math.floor(canvas.width / columnWidth);
 
     const goldenRatio = 1.61803398875;
     const rootLength = Math.floor(canvas.height / columnWidth);
-    const roots = generateRoots(rootLength, goldenRatio);
+    let roots = generateRoots(rootLength, goldenRatio);
 
     function generateRoots(length, ratio) {
         const roots = [];
@@ -52,19 +52,20 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 
         for (let i = 0; i < columns; i++) {
             const x = i * columnWidth;
-            let y = canvas.height;
-            for (let j = roots.length - 1; j >= 0; j--) {
+            let y = canvas.height - Math.floor(Math.random() * 10); // Randomly move up the roots
+            for (let j = 0; j < roots.length; j++) {
                 const noise = Math.random() * 5 - 2.5;
                 const color = Math.floor(Math.random() * 32) + 192;
                 context.fillStyle = `rgb(0, ${color}, 0)`;
                 context.fillText(roots[j], x, y + noise);
                 y -= columnWidth;
             }
-            roots.unshift(roots.pop());
+            roots.pop();
+            roots.unshift(Math.floor(roots[0] + roots[1] * goldenRatio)); // Grow the roots using the golden ratio
         }
     }
 
-    setInterval(draw, 161.8); // Change this interval to adjust the animation speed
+    setInterval(draw, 161.8);
 
 </script>
 </body>
