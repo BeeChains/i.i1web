@@ -4,17 +4,17 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 <head>
 <title>Cyber Matrix Roots</title>
 <style>
-		body {
-			background-color: black;
+ body {
+ background-color: black;
 		}
 
-		canvas {
-			display: block;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: -1;
-		}
+ canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+		} 
 </style>
 </head>
 <body>
