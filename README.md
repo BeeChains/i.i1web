@@ -21,42 +21,50 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
 <canvas id="matrix"></canvas>
 	
 <script>
-	const canvas = document.getElementById('matrix');
-	const context = canvas.getContext('2d');
+    const canvas = document.getElementById('matrix');
+    const context = canvas.getContext('2d');
 
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-	const columns = Math.floor(canvas.width / 10);
+    const columnWidth = 10;
+    const columns = Math.floor(canvas.width / columnWidth);
 
-	const drops = [];
-	for (let i = 0; i < columns; i++) {
-		drops[i] = Math.floor(Math.random() * canvas.height);
-	}
+    const goldenRatio = 1.61803398875;
+    const rootLength = Math.floor(canvas.height / columnWidth);
+    const roots = generateRoots(rootLength, goldenRatio);
 
-	const goldenRatio = 1.61803398875;
+    function generateRoots(length, ratio) {
+        const roots = [];
+        let a = 1, b = 1;
+        for (let i = 0; i < length; i++) {
+            roots.push(Math.floor(a));
+            const temp = b;
+            b = a;
+            a += temp * ratio;
+        }
+        return roots;
+    }
 
-	function draw() {
-		context.fillStyle = 'rgba(0, 0, 0, 0.05)';
-		context.fillRect(0, 0, canvas.width, canvas.height);
-		
-		context.fillStyle = '#0F0';
-		context.font = '15px monospace';
-		
-		for (let i = 0; i < drops.length; i++) {
-			const text = String.fromCharCode(Math.floor(Math.random() * 128));
-			const y = (i * 10) * goldenRatio % canvas.height;
-			context.fillText(text, i * 10, y);
-			
-			if (drops[i] * 10 > canvas.height && Math.random() > 0.95) {
-				drops[i] = 0;
-			}
-			
-			drops[i]++;
-		}
-	}
+    function draw() {
+        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
 
-	setInterval(draw, 33);
+        context.fillStyle = '#0F0';
+        context.font = '15px monospace';
+
+        for (let i = 0; i < columns; i++) {
+            const x = i * columnWidth;
+            let y = canvas.height;
+            for (let j = roots.length - 1; j >= 0; j--) {
+                context.fillText(roots[j], x, y);
+                y -= columnWidth;
+            }
+            roots.unshift(roots.pop());
+        }
+    }
+
+    setInterval(draw, 33);
 </script>
 </body>
 </html>
