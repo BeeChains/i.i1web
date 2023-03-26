@@ -30,26 +30,6 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     const columnWidth = 20; // Increase column width for more space between columns
     const columns = Math.floor(canvas.width / columnWidth);
 
-    const goldenRatio = 1.
-
-
-
-innerinetcompany@gmail.com
-need to space the roots apart 
-To space the roots apart, you can modify the columnWidth and rootLength variables in the JavaScript code to increase the distance between the columns and the length of the roots respectively. Here's the modified code:
-
-php
-Copy code
-<script>
-    const canvas = document.getElementById('matrix');
-    const context = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const columnWidth = 20; // Increase column width for more space between columns
-    const columns = Math.floor(canvas.width / columnWidth);
-
     const goldenRatio = 1.61803398875;
     const rootLength = Math.floor(canvas.height / columnWidth) * 2; // Increase root length for more space between roots
     let roots = generateRoots(rootLength, goldenRatio);
