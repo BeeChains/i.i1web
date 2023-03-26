@@ -57,13 +57,28 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
                 const noise = Math.random() * 5 - 2.5;
                 const hue = Math.random() * 360;
                 context.fillStyle = `hsl(${hue}, 100%, 50%)`;
-                context.fillText(roots[j], x, y + noise);
+
+                const numDigits = roots[j].toString().length;
+                for (let k = 0; k < numDigits; k++) {
+                    const digit = parseInt(roots[j].toString()[k], 10);
+                    const angle = Math.PI / 6 * digit;
+                    const length = columnWidth / 2;
+                    const startX = x + Math.sin(angle) * length;
+                    const startY = y + Math.cos(angle) * length;
+                    const endX = x + Math.sin(angle) * (length + (numDigits - k) * 5);
+                    const endY = y + Math.cos(angle) * (length + (numDigits - k) * 5);
+                    context.beginPath();
+                    context.moveTo(startX, startY + noise);
+                    context.lineTo(endX, endY + noise);
+                    context.stroke();
+                }
+
                 y -= columnWidth;
             }
         }
     }
 
-    setInterval(draw, 369);
+    setInterval(draw, 100);
 
 </script>
 </body>
