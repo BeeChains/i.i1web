@@ -79,6 +79,7 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     }
 
     setInterval(draw, 369);
+
 </script>
 </body>
 </html>
