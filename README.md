@@ -47,17 +47,17 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
     }
 
     function draw() {
-        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        context.fillStyle = '#000';
         context.fillRect(0, 0, canvas.width, canvas.height);
-
-        context.fillStyle = '#0F1';
-        context.font = '15px monospace';
 
         for (let i = 0; i < columns; i++) {
             const x = i * columnWidth;
             let y = canvas.height;
             for (let j = roots.length - 1; j >= 0; j--) {
-                context.fillText(roots[j], x, y);
+                const noise = Math.random() * 5 - 2.5;
+                const color = Math.floor(Math.random() * 32) + 192;
+                context.fillStyle = `rgb(0, ${color}, 0)`;
+                context.fillText(roots[j], x, y + noise);
                 y -= columnWidth;
             }
             roots.unshift(roots.pop());
