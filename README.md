@@ -50,7 +50,7 @@ Handshake site on .i1web TLD at [reg.uncensorednames/](https://reg.uncensorednam
         context.fillStyle = 'rgba(0, 0, 0, 0.05)';
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        context.fillStyle = '#0F0';
+        context.fillStyle = '#0F1';
         context.font = '15px monospace';
 
         for (let i = 0; i < columns; i++) {
