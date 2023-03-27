@@ -1,135 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Roots to H</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            background-color: black;
-            overflow: auto;
-        }
-        canvas {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+	<title>Growing Cyber Matrix Roots</title>
+	<style>
+		body {
+			background-color: black;
+			overflow: auto;
+			margin: 0;
+			padding: 0;
+		}
+
+		canvas {
+			display: block;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+	</style>
 </head>
 <body>
-    <canvas id="matrix"></canvas>
+	<canvas id="matrix"></canvas>
 
-<script>
-        const canvas = document.getElementById('matrix');
-        const context = canvas.getContext('2d');
+	<script>
+		const canvas = document.getElementById('matrix');
+		const context = canvas.getContext('2d');
 
-        const columnWidth = 20;
-        const columns = Math.floor(canvas.width / columnWidth);
-        const goldenRatio = 1.61803398875;
-        const rootNames = ["inneri/", "hnsroot/", "handshakenft/", "droot/", "rootsoftheinternet/", "i1web/", "innerinetwork/", "uncensorednames/", "aidrip/", "therootzone/"];
-        const numRoots = rootNames.length;
-        const rootLengths = [];
-        let roots = [];
-        let x = canvas.width / 2 - columnWidth / 2;
-        let y = canvas.height - columnWidth / 2;
-        let growing = true;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 
-        function generateRootLengths() {
-            for (let i = 0; i < numRoots; i++) {
-                rootLengths[i] = Math.floor(Math.random() * 20) + 10; // Generate random length for each root
-            }
-        }
+		const columnWidth = 20;
+		const columns = Math.floor(canvas.width / columnWidth);
 
-        function generateRoots() {
-            roots = [];
-            let a = 1, b = 1;
-            for (let i = 0; i < numRoots; i++) {
-                roots.push({
-                    name: rootNames[i],
-                    length: rootLengths[i],
-                    x: x,
-                    y: y,
-                    angle: Math.random() * Math.PI / 4 - Math.PI / 8,
-                    hue: Math.random() * 360,
-                    growing: true
-                });
-            }
-        }
+		const goldenRatio = 1.61803398875;
 
-        function drawRoot(root) {
-            if (root.growing) {
-                if (root.length > 0) {
-                    // Draw the root segment
-                    const x2 = root.x + Math.cos(root.angle) * root.length;
-                    const y2 = root.y - Math.sin(root.angle) * root.length;
-                    context.beginPath();
-                    context.moveTo(root.x, root.y);
-                    context.lineTo(x2, y2);
-                    context.strokeStyle = `hsl(${root.hue}, 100%, ${root.length * 2}%)`;
-                    context.stroke();
+		const roots = [];
 
-                    // Update root position and length
-                    root.x = x2;
-                    root.y = y2;
-                    root.length--;
-                } else {
-                    root.growing = false;
-                }
-            }
-        }
+		function generateRoots() {
+			const numRoots = Math.floor(Math.random() * 10) + 5; // Generate random number of roots
+			let a = 1, b = 1;
+			for (let i = 0; i < numRoots; i++) {
+				roots.push({
+					x: (columns / 2) * columnWidth,
+					y: canvas.height,
+					level: 0,
+					length: 0,
+					angle: -Math.PI / 2,
+					dx: 0,
+					dy: -1,
+					color: `hsl(${Math.random() * 360}, 100%, 50%)`
+				});
+				const temp = b;
+				b = a;
+				a += temp * goldenRatio;
+			}
+		}
 
-        function drawH() {
-            if (growing) {
-                // Draw the H segments
-                const hWidth = columnWidth * 3;
-                const hHeight = columnWidth * 3;
-                context.beginPath();
-                context.moveTo(x, y - hHeight / 2);
-                context.lineTo(x + hWidth, y - hHeight / 2);
-                context.moveTo(x, y + hHeight / 2);
-                context.lineTo(x + hWidth, y + hHeight / 2);
-                context.moveTo(x + hWidth / 2, y - hHeight / 2);
-                context.lineTo(x + hWidth / 2, y + hHeight / 2);
-                context.lineWidth = columnWidth;
-                context.strokeStyle = 'white';
-                context.stroke();
-                
-               // Check if all roots have stopped growing
-            let allStoppedGrowing = true;
-            for (let i = 0; i < numRoots; i++) {
-                if (roots[i].growing) {
-                    allStoppedGrowing = false;
-                    break;
-                }
-            }
+		function drawRoot(root) {
+			const newX = root.x + Math.cos(root.angle) * root.length;
+			const newY = root.y + Math.sin(root.angle) * root.length;
+			const newLevel = root.level + 1;
+			const newLength = root.length + columnWidth;
+			const newAngle = root.angle + (Math.random() - 0.5) / 4;
 
-            // If all roots have stopped growing, stop animating
-            if (allStoppedGrowing) {
-                growing = false;
-            }
-        }
+			context.strokeStyle = root.color;
+			context.beginPath();
+			context.moveTo(root.x, root.y);
+			context.lineTo(newX, newY);
+			context.stroke();
 
-        // Draw each root
-        for (let i = 0; i < numRoots; i++) {
-            drawRoot(roots[i]);
-        }
+			root.x = newX;
+			root.y = newY;
+			root.level = newLevel;
+			root.length = newLength;
+			root.angle = newAngle;
+			root.dx = Math.cos(newAngle);
+			root.dy = Math.sin(newAngle);
 
-        // If still growing, request next frame
-        if (growing) {
-            requestAnimationFrame(drawH);
-        }
-    }
+			if (newLevel < 10) {
+				if (newLevel === 7) {
+					context.font = `${columnWidth * 2}px monospace`;
+					context.fillStyle = root.color;
+					context.fillText('H', root.x - columnWidth * 2, root.y + columnWidth * 1.5);
+				} else {
+					setTimeout(() => {
+						roots.push({
+							x: newX,
+							y: newY,
+							level: newLevel,
+							length: newLength,
+							angle: newAngle,
+							dx: Math.cos(newAngle),
+							dy: Math.sin(newAngle),
+							color: root.color
+						});
+					}, 50);
+				}
+			}
+		}
 
-    // Generate random root lengths and create roots on page load
-    generateRootLengths();
-    generateRoots();
+		function draw() {
+			context.fillStyle = '#000';
+			context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Start animating
-    requestAnimationFrame(drawH);
+			for (let i = 0; i < roots.length; i++) {
+				drawRoot(roots[i]);
+			}
+		}
+
+		generateRoots();
+
+		setInterval(draw, 369);
 </script>
 </body>
  # Handshake site on .i1web TLD at <a href="https://reg.uncensorednames.com">Reg.UncensoredNames/</a>
