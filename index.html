@@ -5,7 +5,6 @@
 <style>
  body {
  background-color: black;
- overflow: auto;
     }
     
  canvas {
@@ -30,17 +29,13 @@
     const columnWidth = 20;
     const columns = Math.floor(canvas.width / columnWidth);
 
-    const goldenRatio = 1.61803398875;
+    const domainNames = ["inneri/", "hnsroot/", "handshakenft/", "droot/", "rootsoftheinternet/", "i1web/", "innerinetwork/", "uncensorednames/", "aidrip/", "therootzone/"];
 
     function generateRoots() {
         const roots = [];
         const numRoots = Math.floor(Math.random() * 10) + 5; // Generate random number of roots
-        let a = 1, b = 1;
         for (let i = 0; i < numRoots; i++) {
-            roots.push(Math.floor(a));
-            const temp = b;
-            b = a;
-            a += temp * goldenRatio;
+            roots.push(domainNames[Math.floor(Math.random() * domainNames.length)]);
         }
         return roots;
     }
@@ -67,6 +62,6 @@
 
 </script>
  Handshake site on .i1web TLD at <a href="https://reg.uncensorednames.com">Reg.UncensoredNames/</a>
- see post about this rainbow golden ratio cyber roots <a href="https://innerinetcompany.com/2023/03/26/text-to-code-cyber-matrix-roots/">innerinetcompany.com/</a>
+ see post about this rainbow cyber roots <a href="https://innerinetcompany.com/2023/03/26/text-to-code-cyber-matrix-roots/">innerinetcompany.com/</a>
 </body>
 </html>
