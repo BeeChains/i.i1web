@@ -1,118 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Growing Cyber Matrix Roots</title>
-	<style>
-		body {
-			background-color: black;
-			overflow: auto;
-			margin: 0;
-			padding: 0;
-		}
+    <title>i.i1web/ | Rainbow Roots of Domain Names</title>
+    <style>
+        body {
+            background-color: black;
+            overflow: hidden;
+        }
 
-		canvas {
-			display: block;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: -1;
-		}
-	</style>
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
-	<canvas id="matrix"></canvas>
+<canvas id="roots"></canvas>
 
-	<script>
-		const canvas = document.getElementById('matrix');
-		const context = canvas.getContext('2d');
+<script>
+    const canvas = document.getElementById('roots');
+    const context = canvas.getContext('2d');
 
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-		const columnWidth = 20;
-		const columns = Math.floor(canvas.width / columnWidth);
+    const maxDepth = 5;
+    const branchesPerNode = 3;
+    const branchAngle = Math.PI / 6;
+    const initialLength = 150;
+    const lengthFactor = 0.8;
 
-		const goldenRatio = 1.61803398875;
+    const domainNames = ["inneri/", "hnsroot/", "handshakenft/", "droot/", "rootsoftheinternet/", "i1web/", "innerinetwork/", "uncensorednames/", "aidrip/", "therootzone/"];
 
-		const roots = [];
+    function generateRoots(depth, angle, length, x, y) {
+        if (depth === 0) {
+            return;
+        }
 
-		function generateRoots() {
-			const numRoots = Math.floor(Math.random() * 10) + 5; // Generate random number of roots
-			let a = 1, b = 1;
-			for (let i = 0; i < numRoots; i++) {
-				roots.push({
-					x: (columns / 2) * columnWidth,
-					y: canvas.height,
-					level: 0,
-					length: 0,
-					angle: -Math.PI / 2,
-					dx: 0,
-					dy: -1,
-					color: `hsl(${Math.random() * 360}, 100%, 50%)`
-				});
-				const temp = b;
-				b = a;
-				a += temp * goldenRatio;
-			}
-		}
+        const numBranches = Math.floor(Math.random() * branchesPerNode) + 1;
+        const branchAngles = [];
+        for (let i = 0; i < numBranches; i++) {
+            branchAngles.push(angle + Math.random() * branchAngle * 2 - branchAngle);
+        }
 
-		function drawRoot(root) {
-			const newX = root.x + Math.cos(root.angle) * root.length;
-			const newY = root.y + Math.sin(root.angle) * root.length;
-			const newLevel = root.level + 1;
-			const newLength = root.length + columnWidth;
-			const newAngle = root.angle + (Math.random() - 0.5) / 4;
+        const hue = Math.random() * 360;
+        const saturation = Math.random() * 30 + 70;
+        const lightness = Math.random() * 40 + 50;
+        context.strokeStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 
-			context.strokeStyle = root.color;
-			context.beginPath();
-			context.moveTo(root.x, root.y);
-			context.lineTo(newX, newY);
-			context.stroke();
+        for (let i = 0; i < numBranches; i++) {
+            const newLength = length * lengthFactor;
+            const newX = x + newLength * Math.sin(branchAngles[i]);
+            const newY = y - newLength * Math.cos(branchAngles[i]);
+            context.beginPath();
+            context.moveTo(x, y);
+            context.lineTo(newX, newY);
+            context.stroke();
 
-			root.x = newX;
-			root.y = newY;
-			root.level = newLevel;
-			root.length = newLength;
-			root.angle = newAngle;
-			root.dx = Math.cos(newAngle);
-			root.dy = Math.sin(newAngle);
+            const domainName = domainNames[Math.floor(Math.random() * domainNames.length)];
+            context.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            context.font = `${Math.floor(length / 3)}px Arial`;
+            context.fillText(domainName, newX - context.measureText(domainName).width / 2, newY);
 
-			if (newLevel < 10) {
-				if (newLevel === 7) {
-					context.font = `${columnWidth * 2}px monospace`;
-					context.fillStyle = root.color;
-					context.fillText('H', root.x - columnWidth * 2, root.y + columnWidth * 1.5);
-				} else {
-					setTimeout(() => {
-						roots.push({
-							x: newX,
-							y: newY,
-							level: newLevel,
-							length: newLength,
-							angle: newAngle,
-							dx: Math.cos(newAngle),
-							dy: Math.sin(newAngle),
-							color: root.color
-						});
-					}, 50);
-				}
-			}
-		}
+            generateRoots(depth - 1, branchAngles[i], newLength, newX, newY);
+        }
+    }
 
-		function draw() {
-			context.fillStyle = '#000';
-			context.fillRect(0, 0, canvas.width, canvas.height);
+    generateRoots(maxDepth, -Math.PI / 2, initialLength, canvas.width / 2, canvas.height);
 
-			for (let i = 0; i < roots.length; i++) {
-				drawRoot(roots[i]);
-			}
-		}
-
-		generateRoots();
-
-		setInterval(draw, 369);
 </script>
+
+<p>Handshake site on .i1web TLD at <a href="https://reg.uncensorednames.com">Reg.UncensoredNames/</a></p>
+<p>See post about these rainbow domain name roots at <a href="https://innerinetcompany.com/2023/03/26/text-to-code-cyber-matrix-roots/">innerinetcompany.com/</a></p>
 </body>
- # Handshake site on .i1web TLD at <a href="https://reg.uncensorednames.com">Reg.UncensoredNames/</a>
- # see post about this rainbow cyber roots <a href="https://innerinetcompany.com/2023/03/26/text-to-code-cyber-matrix-roots/">innerinetcompany.com/</a>
 </html>
